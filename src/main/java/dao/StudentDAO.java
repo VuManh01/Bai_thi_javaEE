@@ -76,4 +76,23 @@ public class StudentDAO {
         return student;
     }
 
+    public void deleteStudent(int studentId) throws SQLException, ClassNotFoundException {
+        Connection conn = DBConnection.getConnection();
+        
+        // First delete related records in student_score_t table
+        String deleteScoresSql = "DELETE FROM student_score_t WHERE student_id=?";
+        PreparedStatement deleteScoresStmt = conn.prepareStatement(deleteScoresSql);
+        deleteScoresStmt.setInt(1, studentId);
+        deleteScoresStmt.executeUpdate();
+        deleteScoresStmt.close();
+        
+        // Then delete the student record
+        String deleteStudentSql = "DELETE FROM student_t WHERE student_id=?";
+        PreparedStatement deleteStudentStmt = conn.prepareStatement(deleteStudentSql);
+        deleteStudentStmt.setInt(1, studentId);
+        deleteStudentStmt.executeUpdate();
+        deleteStudentStmt.close();
+        
+        conn.close();
+    }
 }

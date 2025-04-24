@@ -31,6 +31,7 @@
   <div class="text-center">
     <button type="submit" class="btn btn-success">Update Student</button>
     <a href="studentInfo" class="btn btn-secondary ms-2">Cancel</a>
+    <a href="deleteStudent?id=<%= student.getId() %>" class="btn btn-danger ms-2" onclick="return confirm('Are you sure you want to delete this student?')">Delete Student</a>
   </div>
 </form>
 </body>
